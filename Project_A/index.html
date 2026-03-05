@@ -1,0 +1,92 @@
+<!-- 
+Template for IMA's Creative Coding Lab 
+
+Project A: Generative Creatures
+CCLaboratories Biodiversity Atlas 
+-->
+
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Cloud(ies)</title>
+
+    <!-- allow special characters, including Arabic, Chinese, Korean, Japanese, etc. -->
+    <meta charset="UTF-8">
+    <!-- link the style sheet -->
+    <link rel="stylesheet" type="text/css" href="style.css">
+    <!-- import p5.js library -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+    <script>
+        // prevent scrolling when spacebar and arrow keys are pressed.
+        window.addEventListener("keydown", function (e) { if ([32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) { e.preventDefault(); } }, false);
+    </script>
+</head>
+
+<body>
+    <!-- title -->
+    <div id="title-wrapper">
+        <h1 class="headline black">Cloud(ies)</h1>
+    </div>
+
+    <!-- main content -->
+    <div id="main-wrapper">
+        <div id="p5-canvas-container">
+            <!-- This is where your p5 sketch will be appended and appear! -->
+        </div>
+        <div class="two-columns">
+            <div class="left">
+                <h3 class="red">Scientific Name:</h3>
+                <p>Nubecula Multiplicata</p>
+
+                <h3 class="red">Discovered by / at:</h3>
+                <p>Savanna Yanye Lee, 2026</p>
+
+                <h3 class="green">Family:</h3>
+                <p>This is part of the story telling of your project. Add the relevant information for the creature you
+                    discovered.</p>
+            </div>
+            <div class="right">
+                <h3 class="green">Habitat:</h3>
+                <p>Open skies, digital atmospheres, and interactive canvas environments. It prefers bright blue backgrounds and areas where it can drift freely!!!
+</p>
+
+                <h3 class="green">Appearance:</h3>
+                <p>A soft white floating cloud with round fluffy edges, small black eyes, and a simple curved mouth. It gently wiggles and moves across the sky.</p>
+
+                <h3 class="green">Key Characteristics:</h3>
+                <ul>
+                    <li>Flies in the sky.</li>
+                    <li>Gets angry when too big.</li>
+                    <li>Splits when size too big.</li>
+                    <li>Enjoy someone helps it destress</li>
+                </ul>
+            </div>
+        </div>
+        <div class="one-column">
+            <p>
+                <span class="yellow">What we know so far about Cloud(ies)?</span>
+                Cloud(ies) is a responsive sky creature that reacts to touch. It can grow, rain, and even split into multiple smaller versions of itself when it drifts beyond its boundaries. Its behavior is controlled by motion patterns and user interaction.
+
+                <br>
+                <span class="yellow">Guidelines for human interaction with this creature</span> Press and hold on Cloud(ies) to make it rain. Release to calm it. If it floats beyond the frame, it will split into smaller clouds. Interaction changes its size and behavior in real time.
+
+            </p>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <div id="footer" class="black">
+        <p>A CCLab project made by Savanna Yanye Lee in Spring 2026</p>
+    </div>
+
+    <!-- Home: Link back to the ATLAS page-->
+    <div id="home">
+        <a href="https://cclab.work/atlas">Back to the ATLAS</a>
+    </div>
+
+    <!-- Include your sketch.js file here -->
+    <script src="sketch.js" type="text/javascript"> </script>
+</body>
+
+</html>
