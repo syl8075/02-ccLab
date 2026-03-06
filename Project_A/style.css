@@ -38,15 +38,15 @@ body {
 }
 
 .red {
-    color: DeepPink;
+    color: rgb(247,202,201);
 }
 
 .green {
-    color: LightSeaGreen;
+    color: rgb(197,185,205);
 }
 
 .yellow {
-    color: GoldenRod;
+    color: rgb(146,168,209);
 }
 
 .two-columns {
