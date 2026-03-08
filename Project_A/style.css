@@ -49,6 +49,10 @@ body {
     color: rgb(146,168,209);
 }
 
+.Sign {
+    color: rgb(255, 0, 0);
+}
+
 .two-columns {
     display: flex;
 }

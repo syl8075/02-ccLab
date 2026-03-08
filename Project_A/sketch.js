@@ -7,10 +7,12 @@ let cSize = 0;
 function setup() {
   let canvas= createCanvas(800, 500); 
   canvas.parent("p5-canvas-container");
+
+  locX = width / 2;
+  locY = height / 2;
 }
 
 function draw() {
-
   drawBackground();
   drawSun();
   updateCloud();
@@ -27,20 +29,20 @@ function draw() {
   }
 }
 
-function drawBackground(){
-
-  if (size < 280){
-    background(135,206,235);
-  }else if(size < 330){
-    background(100,160,200);
-  }else{
-    background(60,90,130);
+function drawBackground() {
+  if (size < 280) {
+    background(135, 206, 235);
+  } else if (size < 330) {
+    background(100, 160, 200);
+  } else {
+    background(60, 90, 130);
   }
-
+  if (size > 345 && frameCount % 10 < 3) {
+    background(200, 200, 255);
+  }
 }
 
-function updateCloud(){
-
+function updateCloud() {
   let moveX = map(sin(frameCount * 0.005), -1, 1, -250, 250);
   let moveY = map(cos(frameCount * 0.001), -1, 1, -100, 100);
 
@@ -59,39 +61,34 @@ function updateCloud(){
   if (size < 0) {
     size = 0;
   }
-
 }
 
-function checkMouseEffect(){
-
+function checkMouseEffect() {
   let d = dist(mouseX, mouseY, locX, locY);
 
-  if (d < size){
+  if (d < size) {
     size += 3;
   }
-
 }
 
-function drawSun(){  
-
+function drawSun() {
   let sunX = sin(frameCount * 0.005) * 400;
   let sunY = cos(frameCount * 0.005) * 400;
 
-  let sunSize = 150 + random(-3,3);
+  let sunSize = 150 + random(-3, 3);
 
   push();
-  translate(400,400);
+  translate(400, 400);
 
   noStroke();
-  fill(255,158,16);
+  fill(255, 158, 16);
 
-  circle(sunX,sunY,sunSize);
+  circle(sunX, sunY, sunSize);
 
   pop();
 }
 
 function drawCreature(x, y) {
-
   push();
 
   translate(x, y);
@@ -106,7 +103,6 @@ function drawCreature(x, y) {
 }
 
 function drawBody() {
-
   if (size > 295) {
     fill(120);
   } else if (size < 60) {
@@ -124,10 +120,9 @@ function drawBody() {
   ellipse(-size * 0.2, -size * 0.3, size * 0.7, size * 0.7);
 }
 
-function drawEyes(){
-
-  let eyeMoveX = map(mouseX,0,width,-size*0.05,size*0.05);
-  let eyeMoveY = map(mouseY,0,height,-size*0.05,size*0.05);
+function drawEyes() {
+  let eyeMoveX = map(mouseX, 0, width, -size * 0.05, size * 0.05);
+  let eyeMoveY = map(mouseY, 0, height, -size * 0.05, size * 0.05);
 
   fill(0);
   ellipse(size * 0.2, size * -0.1, size * 0.25);
@@ -138,85 +133,63 @@ function drawEyes(){
   ellipse(size * -0.15 + eyeMoveX, size * -0.2 + eyeMoveY, size * 0.08);
 
   // angry eyebrows when thunder
-  if(size > 345){
-
+  if (size > 345) {
     stroke(0);
     strokeWeight(4);
 
-    line(size * -0.3, size * -0.3,
-         size * -0.05, size * -0.15);
+    line(size * -0.3, size * -0.3, size * -0.05, size * -0.15);
 
-    line(size * 0.3, size * -0.3,
-         size * 0.05, size * -0.15);
-
+    line(size * 0.3, size * -0.3, size * 0.05, size * -0.15);
   }
-
 }
 
-function drawMouth(){
-
+function drawMouth() {
   stroke(0);
   strokeWeight(5);
   noFill();
 
   // angry when thunder
-  if(size > 345){
-
+  if (size > 345) {
     arc(0, size * 0.3, size * 0.4, size * 0.2, PI, TWO_PI);
-
   }
-  
+
   // sad when raining
-  else if(isRaining){
-
+  else if (isRaining) {
     arc(0, size * 0.3, size * 0.4, size * 0.2, PI, TWO_PI);
-
   }
 
   // normal happy
-  else{
-
+  else {
     arc(0, size * 0.2, size * 0.4, size * 0.2, 0, PI);
-
   }
-
 }
 
-function drawBlush(){
-
+function drawBlush() {
   let d = dist(mouseX, mouseY, locX, locY);
 
   // no blush if angry
-  if(d < size && size < 345){
-
+  if (d < size && size < 345) {
     noStroke();
-    fill(255,150,150,150);
+    fill(255, 150, 150, 150);
 
     ellipse(size * 0.35, size * 0.05, size * 0.18);
     ellipse(-size * 0.35, size * 0.05, size * 0.18);
-
   }
-
 }
 
-function drawRain(){
-
+function drawRain() {
   noStroke();
   fill("#63C0F1");
 
   for (let i = 0; i < 20; i++) {
-
     let rainX = random(locX - size, locX + size);
     let rainY = random(locY + size * 0.3, locY + size + 300);
 
     ellipse(rainX, rainY, 4, 10);
-
   }
-
 }
 
-function drawThunder(){
-
+function drawThunder() {
   fill("yellow");
   noStroke();
 
@@ -226,19 +199,16 @@ function drawThunder(){
   vertex(locX - 5, locY + size * 0.9);
   vertex(locX + 10, locY + size * 1.4);
   endShape(CLOSE);
-
 }
 
-function mousePressed(){
-
+function mousePressed() {
   let d = dist(mouseX, mouseY, locX, locY);
 
   if (d < size) {
     isRaining = true;
   }
-
 }
 
-function mouseReleased(){
+function mouseReleased() {
   isRaining = false;
 }
