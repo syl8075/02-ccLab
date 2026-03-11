@@ -31,11 +31,11 @@ function draw() {
     drawRain();
   }
 
-  if (size > 245 && !split) {
+  if (size > 255 && !split) {
     drawThunder();
   }
 
-if (size > 250 && !split) {
+if (size > 270 && !split) {
 
   split = true;
 
