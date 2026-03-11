@@ -35,7 +35,7 @@ function draw() {
     drawThunder();
   }
 
-if (size > 370 && split == false) {
+if (size > 350 && !split) {
 
   split = true;
 
