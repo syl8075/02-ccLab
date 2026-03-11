@@ -3,6 +3,7 @@ let locX;
 let locY;
 let isRaining = false;
 let cSize = 0;
+let growAmount = 0;
 
 function setup() {
   let canvas= createCanvas(800, 500); 
@@ -50,7 +51,7 @@ function updateCloud() {
   locY = 250 + moveY;
 
   let sinVal = map(sin(frameCount * 0.01), -1, 1, 150, 170);
-  size = sinVal - cSize;
+ size += (sinVal - cSize - size) * 0.05;
 
   if (isRaining) {
     cSize += 0.07;
