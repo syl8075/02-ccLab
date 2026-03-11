@@ -23,13 +23,15 @@ function draw() {
   updateCloud();
   checkMouseEffect();
 
-  drawCreature(locX, locY);
+  if (!split) {
+    drawCreature(locX, locY);
+  }
 
   if (isRaining) {
     drawRain();
   }
 
-  if (size > 345) {
+  if (size > 345 && !split) {
     drawThunder();
   }
 
