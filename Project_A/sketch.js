@@ -51,7 +51,8 @@ function updateCloud() {
   locY = 250 + moveY;
 
   let sinVal = map(sin(frameCount * 0.01), -1, 1, 150, 170);
- size += (sinVal - cSize - size) * 0.05;
+  size = sinVal - cSize + growAmount;
+  growAmount *= 0.9;
 
   if (isRaining) {
     cSize += 0.07;
@@ -69,6 +70,7 @@ function checkMouseEffect() {
 
   if (d < size) {
     size += 3;
+    growAmount += 3;
   }
 }
 
