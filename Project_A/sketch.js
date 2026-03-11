@@ -4,6 +4,10 @@ let locY;
 let isRaining = false;
 let cSize = 0;
 let growAmount = 0;
+let split = false;
+let s1x, s1y, s1size;
+let s2x, s2y, s2size;
+let s3x, s3y, s3size;
 
 function setup() {
   let canvas= createCanvas(800, 500); 
@@ -28,6 +32,41 @@ function draw() {
   if (size > 345) {
     drawThunder();
   }
+
+if (size > 370 && split == false) {
+
+  split = true;
+
+  s1x = locX - 60;
+  s1y = locY;
+  s1size = 110;
+
+  s2x = locX + 60;
+  s2y = locY - 30;
+  s2size = 120;
+
+  s3x = locX;
+  s3y = locY + 40;
+  s3size = 115;
+
+  size = 150;
+  cSize = 0;
+}
+
+  if (split) {
+
+  drawCreatureSmall(s1x, s1y, s1size);
+  drawCreatureSmall(s2x, s2y, s2size);
+  drawCreatureSmall(s3x, s3y, s3size);
+
+  s1size -= 0.3;
+  s2size -= 0.3;
+  s3size -= 0.3;
+
+  if (s1size <= 0) {
+    split = false;
+  }
+}
 }
 
 function drawBackground() {
@@ -69,7 +108,6 @@ function checkMouseEffect() {
   let d = dist(mouseX, mouseY, locX, locY);
 
   if (d < size) {
-    size += 3;
     growAmount += 3;
   }
 }
@@ -214,4 +252,19 @@ function mousePressed() {
 
 function mouseReleased() {
   isRaining = false;
+}
+
+function drawCreatureSmall(x, y, s) {
+
+  push();
+  translate(x, y);
+
+  noStroke();
+  fill(255);
+
+  ellipse(0, 0, s, s);
+  ellipse(s * 0.5, s * 0.1, s * 0.8, s * 0.8);
+  ellipse(-s * 0.5, s * 0.1, s * 0.8, s * 0.8);
+
+  pop();
 }
