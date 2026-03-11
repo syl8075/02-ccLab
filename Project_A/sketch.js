@@ -31,7 +31,7 @@ function draw() {
     drawRain();
   }
 
-  if (size > 255 && !split) {
+  if (size > 235 && !split) {
     drawThunder();
   }
 
