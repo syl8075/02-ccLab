@@ -62,7 +62,7 @@ class SavannaDancer {
     // update properties here to achieve
     // your dancer's desired moves and behaviour
     this.bounce= sin(frameCount* 0.08)* 10;
-    let blinkSpeed = abs(sin(frameCount * 0.07));
+    let blinkSpeed = let sinVal = map(sin(frameCount * 0.07), -1, 1, 0, 20);
 
   if (blinkSpeed > 0.95) {
     this.blink = 2;
