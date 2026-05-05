@@ -403,7 +403,7 @@ class textBox {
     }
     this.stageTimer++;
 
-    if (this.stageTimer > 180) {
+    if (this.stageTimer > 600) {
       this.stage = 5;
       this.stageTimer = 0;
     }
