@@ -8,6 +8,36 @@ let button;
 
 let isActive = false;
 
+let currentSound = null;
+let mySoundsE = [];
+let mySoundsM = [];
+let mySoundsC = [];
+let mySoundsK = [];
+
+let textE = ["Language is fascinating.", "It shapes how we understand the world.", "Can we fully express thought?"];
+let textM = ["语言很有意思。", "它影响我们理解世界的方式。", "我们能完全表达思想吗？"];
+let textC = ["語言好神奇。", "佢影響我哋點樣理解世界。", "我哋真係可以完全表達思想嗎？"];
+
+
+function preload() {
+  mySoundsE[0] = loadSound('assets/E1.m4a');
+  mySoundsE[1] = loadSound('assets/E2.m4a');
+  mySoundsE[2] = loadSound('assets/E3.m4a');
+  mySoundsE[3] = loadSound('assets/E4.m4a');
+  mySoundsE[4] = loadSound('assets/E5.m4a');
+  mySoundsM[0] = loadSound('assets/M1.m4a');
+  mySoundsM[1] = loadSound('assets/M2.m4a');
+  mySoundsM[2] = loadSound('assets/M3.m4a');
+  mySoundsM[3] = loadSound('assets/M4.m4a');
+  mySoundsM[4] = loadSound('assets/M5.m4a');
+  mySoundsC[0] = loadSound('assets/C1.m4a');
+  mySoundsC[1] = loadSound('assets/C2.m4a');
+  mySoundsC[2] = loadSound('assets/C3.m4a');
+  mySoundsC[3] = loadSound('assets/C4.m4a');
+  mySoundsC[4] = loadSound('assets/C5.m4a');
+  mySoundsK[0] = loadSound('assets/K.m4a');
+}
+
 function setup() {
   let canvas = createCanvas(windowWidth, windowHeight);
   canvas.parent("p5-canvas-container");
@@ -44,6 +74,13 @@ function draw() {
   }
 }
 
+function playSound(s) {
+  if (currentSound && currentSound.isPlaying()) {
+    currentSound.stop();
+  }
+  s.play();
+  currentSound = s;
+}
 
 function keyPressed() {
   if (keyCode === ENTER) {
@@ -57,8 +94,11 @@ function keyPressed() {
       b.expandRight = 0;
       b.expandLeft = 0;
     }
-
   }
+}
+
+function mousePressed() {
+  userStartAudio();
 }
 
 function startAnimation() {
@@ -116,6 +156,10 @@ class textBox {
     this.splitX = [];
     this.splitY = [];
     this.splitSpeed = [];
+
+    //Sound
+    this.lastPlayed = 0;
+    this.floatingTexts = [];
   }
   displayGlitch() {
     let txt = myInput.value();
@@ -258,8 +302,11 @@ class textBox {
     this.expandRight += 2;
     this.expandLeft -= 2;
   }
-  display3() {// also not workiing try to fix it
+  display3() {
     textAlign(CENTER);
+
+    fill(0, 30);
+    this.displayFloatingText();
 
     for (let i = -80; i <= 80; i += 10) {
       text(charsK[floor(random(charsK.length))], this.x + i + this.expandRight, this.yUK1 + random(-60, 20));
@@ -268,7 +315,8 @@ class textBox {
 
     this.expandRight = this.expandRight - random(-2, 1);
     this.expandLeft = this.expandLeft + random(-2, 1);
-  } initStage4() {
+  }
+  initStage4() {
     this.particles = [];
 
     for (let i = 0; i < 80; i++) {
@@ -285,7 +333,59 @@ class textBox {
 
       p.char = random(charsK);
 
+      p.soundType = floor(random(3));
+      p.soundIndex = floor(random(3));
+      p.lastPlayed = 0;
+
       this.particles.push(p);
+    }
+
+    this.floatingTexts = [];
+
+    for (let i = 0; i < 25; i++) {
+      let t = {};
+
+      t.x = random(width);
+      t.y = random(height);
+      t.size = random(12, 28);
+      t.alpha = random(20, 80);
+
+      let lang = floor(random(3));
+      t.lang = lang;
+
+      if (lang === 0) t.text = random(textE);
+      if (lang === 1) t.text = random(textM);
+      if (lang === 2) t.text = random(textC);
+
+      t.lastPlayed = 0;
+
+      this.floatingTexts.push(t);
+    }
+
+  }
+  displayFloatingText() {
+    textAlign(CENTER);
+
+    for (let t of this.floatingTexts) {
+
+      fill(0, 40);
+      text(t.text, t.x, t.y);
+
+      let d = dist(mouseX, mouseY, t.x, t.y);
+      let now = millis();
+
+      if (d < 60 && now - t.lastPlayed > 800) {
+
+        if (t.lang === 0) playSound(random(mySoundsE));
+        if (t.lang === 1) playSound(random(mySoundsM));
+        if (t.lang === 2) playSound(random(mySoundsC));
+
+        t.lastPlayed = now;
+      }
+      if (d < 80) {
+        fill(240, 100);
+        ellipse(t.x, t.y, 20);
+      }
     }
   }
   update4() {
@@ -310,6 +410,10 @@ class textBox {
   }
   display4() {
     textAlign(CENTER);
+
+    fill(0, 15);
+    this.displayFloatingText();
+
     fill(0, this.stage4Fade);
 
     for (let p of this.particles) {
@@ -318,6 +422,13 @@ class textBox {
 
       fill(0, 50);
       text(p.char, p.x + random(-2, 2), p.y + random(-2, 2));
+
+      let d = dist(mouseX, mouseY, p.x, p.y);
+      let now = millis();
+
+      if (d < 80 && now - p.lastPlayed > 800) {
+        p.lastPlayed = now;
+      }
     }
   }
   update5() {
