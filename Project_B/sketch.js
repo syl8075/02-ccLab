@@ -9,17 +9,17 @@ let button;
 let isActive = false;
 
 function setup() {
-  let canvas = createCanvas(800, 500);
+  let canvas = createCanvas(windowWidth, windowHeight);
   canvas.parent("p5-canvas-container");
 
-  b = new textBox(380, 250);
+  b = new textBox(width / 2, height / 2);
 
   myInput = createInput();
-  myInput.position(360, 610);
+  myInput.size(200);
 
   button = createButton('ENTER');
-  button.position(490, 610);
   button.mousePressed(startAnimation);
+  button.size(80);
 
   frameRate(30)
 }
@@ -28,6 +28,11 @@ function setup() {
 function draw() {
   background(220, 10);
 
+  let totalWidth = 200 + 10 + 80;
+  let startX = width / 2 - totalWidth / 2;
+
+  myInput.position(startX, height / 2 + 200);
+  button.position(startX + 200 + 10, height / 2 + 200);
 
   if (isActive === false) {
     textAlign(CENTER);
@@ -59,6 +64,10 @@ function keyPressed() {
 function startAnimation() {
   isActive = true;
   b.display0();
+}
+
+function windowResized() {
+  resizeCanvas(windowWidth, windowHeight);
 }
 
 class textBox {
