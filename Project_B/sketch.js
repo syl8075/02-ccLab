@@ -188,8 +188,8 @@ class textBox {
       text(chars[floor(random(chars.length))], this.x + i + this.spreadLeft, this.yU + random(-50, 0));
     }
 
-    this.spreadRight += (20 - this.spreadRight) * 0.1;
-    this.spreadLeft += (-20 - this.spreadLeft) * 0.1;
+    this.spreadRight += (20 - this.spreadRight) * 0.2;
+    this.spreadLeft += (-20 - this.spreadLeft) * 0.2;
   }
   update2() {
     this.yUK += this.speedY;
